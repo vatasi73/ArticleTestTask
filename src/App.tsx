@@ -7,6 +7,7 @@ import Login from "./components/Login";
 
 import RequireAuth from "./hoc/RequireAuth";
 import Layout from "./components/Layout";
+import Register from "./components/Register";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
     >
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/registration" element={<Register />} />
         <Route
           path="/"
           element={

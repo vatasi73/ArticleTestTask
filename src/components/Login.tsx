@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { login, logout } from "../slices/authSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RootState, useAppDispatch } from "../store";
 
 const Login: React.FC = () => {
@@ -29,7 +29,8 @@ const Login: React.FC = () => {
     }
   }, [isAuthenticated, navigate]);
   return (
-    <div>
+    <div style={{ display: "flex", gap: "20px", flexDirection: "column" }}>
+      <Link to="/registration">Registration</Link>
       <form onSubmit={handleLogin}>
         <div>
           <label>Username:</label>
