@@ -1,4 +1,3 @@
-// Добавляем необходимые импорты
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 import { AuthState } from "./authSlice";
@@ -147,7 +146,7 @@ export const deleteArticle = createAsyncThunk(
           },
         }
       );
-      return id; // Возвращаем id удаленной статьи
+      return id;
     } catch (error) {
       return rejectWithValue(
         (error as AxiosError).response?.data || "Неизвестная ошибка"
@@ -244,7 +243,7 @@ export const deleteComment = createAsyncThunk(
           },
         }
       );
-      return commentId; // Возвращаем id удаленного комментария
+      return commentId;
     } catch (error) {
       return rejectWithValue(
         (error as AxiosError).response?.data || "Неизвестная ошибка"
@@ -269,7 +268,7 @@ export const addReply = createAsyncThunk(
     try {
       const response = await axios.post(
         `https://darkdes-django-t3b02.tw1.ru/api/v1/articles/${articleId}/comments/`,
-        { content, parent: commentId }, // Родительский комментарий
+        { content, parent: commentId },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -285,7 +284,6 @@ export const addReply = createAsyncThunk(
   }
 );
 
-// Слайс для статей
 const articlesSlice = createSlice({
   name: "articles",
   initialState,
@@ -363,12 +361,11 @@ const articlesSlice = createSlice({
         state.error = action.payload as string;
       })
       .addCase(addReply.fulfilled, (state, action) => {
-        // Находим родительский комментарий, к которому мы добавляем ответ
         const parentComment = state.comments.find(
           (comment) => comment.id === action.payload.parent
         );
         if (parentComment) {
-          parentComment.children.push(action.payload); // Добавляем новый ответ как дочерний комментарий
+          parentComment.children.push(action.payload);
         }
         state.error = null;
       });

@@ -126,28 +126,27 @@ const authSlice = createSlice({
         state.isAuthenticated = false;
       })
       .addCase(refreshToken.fulfilled, (state, action) => {
-        state.access = action.payload.access; // Обновляем токен доступа
+        state.access = action.payload.access;
         state.error = null;
       })
       .addCase(refreshToken.rejected, (state, action) => {
         state.error = action.error.message || "Ошибка обновления токена";
       })
       .addCase(changePassword.fulfilled, (state) => {
-        state.changePasswordSuccess = true; // Успешное изменение пароля
+        state.changePasswordSuccess = true;
         state.error = null;
       })
       .addCase(changePassword.rejected, (state, action) => {
         state.error = action.payload as string;
       })
       .addCase(register.fulfilled, (state) => {
-        state.registrationSuccess = true; // Успешная регистрация
+        state.registrationSuccess = true;
         state.error = null;
       })
       .addCase(register.rejected, (state, action) => {
         state.error = action.payload as string;
       })
       .addCase(logout.fulfilled, (state) => {
-        // При выходе очищаем токены и другие состояния
         state.access = null;
         state.refresh = null;
         state.error = null;
